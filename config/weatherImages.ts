@@ -16,7 +16,7 @@ export const icons: WeatherImage = {
   Moon: require("../assets/weatherImages/icons/moon.png"),
   RainSun: require("../assets/weatherImages/icons/rain-sun.png"),
   Rain: require("../assets/weatherImages/icons/rain.png"),
-  Snow: require("../assets/weatherImages/icons/sun.png"),
+  Snow: require("../assets/weatherImages/icons/snow.png"),
   Sun: require("../assets/weatherImages/icons/sun.png"),
   Storm: require("../assets/weatherImages/icons/thunderstorm.png"),
   Mist: require("../assets/weatherImages/icons/mist.png"),
