@@ -14,6 +14,7 @@ import { fetchLocationData } from "../utils/location";
 import { getStorageData } from "../utils/storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getWeatherData } from "../utils/weather";
+import { checkNetworkConnection } from "../utils/networkConnection";
 
 const defaultState: WeatherContextInterface = {
   appColors: colors.sunny,
@@ -37,7 +38,6 @@ export default function WeatherProvider({ children }: WeatherProviderProps) {
 
   const updateWeather = async (): Promise<void> => {
     const locations = await getStorageData("locations");
-
     const storageLocations: WeatherData[] =
       (locations?.value as WeatherData[]) || [];
     const updateWeatherData = await Promise.all(
@@ -54,13 +54,27 @@ export default function WeatherProvider({ children }: WeatherProviderProps) {
   };
 
   const fetchData = async () => {
-    const coords = await fetchLocationData();
-    setLocation(coords || null);
-    // await updateWeather();
+    try {
+      const coords = await fetchLocationData();
+
+      if (coords) {
+        setLocation(coords || null);
+        await updateWeather();
+      }
+    } catch (error) {
+      console.log("FetchData error", error);
+    }
   };
 
   useEffect(() => {
-    fetchData();
+    const checkNetworkAndFetch = async () => {
+      const isNetwork = await checkNetworkConnection();
+      if (isNetwork) {
+        fetchData();
+      }
+    };
+
+    checkNetworkAndFetch();
   }, []);
 
   return (

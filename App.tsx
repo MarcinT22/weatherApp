@@ -5,6 +5,7 @@ import { useFonts } from "expo-font";
 import "react-native-gesture-handler";
 import Navigation from "./navigations/Navigation";
 import WeatherProvider from "./providers/WeatherProviders";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -21,14 +22,16 @@ const App: React.FC = () => {
   }
 
   return (
-    <WeatherProvider>
-      <StatusBar
-        barStyle="light-content"
-        translucent
-        backgroundColor="transparent"
-      />
-      <Navigation />
-    </WeatherProvider>
+    <RootSiblingParent>
+      <WeatherProvider>
+        <StatusBar
+          barStyle="light-content"
+          translucent
+          backgroundColor="transparent"
+        />
+        <Navigation />
+      </WeatherProvider>
+    </RootSiblingParent>
   );
 };
 

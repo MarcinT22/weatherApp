@@ -12,6 +12,7 @@ import ForecastWeather from "../components/ForecastWeather";
 import "react-native-gesture-handler";
 import { WeatherContext } from "../providers/WeatherProviders";
 import { WeatherContextInterface } from "../interfaces";
+import { checkNetworkConnection } from "../utils/networkConnection";
 
 const HomeScreen: React.FC = () => {
   const { location, fetchData } =
@@ -20,7 +21,10 @@ const HomeScreen: React.FC = () => {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
-    await fetchData();
+    const isNetwork = await checkNetworkConnection();
+    if (isNetwork) {
+      await fetchData();
+    }
     setRefreshing(false);
   }, []);
 

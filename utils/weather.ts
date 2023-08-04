@@ -29,6 +29,10 @@ export const getWeatherData = async (
       },
     });
 
+    if (response === undefined) {
+      return;
+    }
+
     const { weather, main, wind, name, coord } = response.data;
 
     return {
@@ -59,6 +63,9 @@ export const getForecastData = async (
         lon: location.lon,
       },
     });
+    if (response === undefined) {
+      return;
+    }
     const list = response.data.list;
 
     return list.map((item: ForecastApiData["list"][0]) => {

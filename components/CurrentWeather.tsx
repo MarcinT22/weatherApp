@@ -31,7 +31,7 @@ const CurrentWeather: React.FC<{
   const [lastUpdate, setLastUpdate] = useState<string>();
   const [windSpeedInKMH, setWindSpeedInKMGH] = useState<number | null>();
 
-  const { appColors, setAppColors, updateWeather } =
+  const { appColors, setAppColors } =
     useContext<WeatherContextInterface>(WeatherContext);
 
   const fetchWeather = async (): Promise<void> => {

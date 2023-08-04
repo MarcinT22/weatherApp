@@ -5,6 +5,7 @@ import { icons } from "../config/weatherImages";
 import { getWeatherImage } from "../utils/weather";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { WeatherContext } from "../providers/WeatherProviders";
+import { checkNetworkConnection } from "../utils/networkConnection";
 
 interface LocationComponent {
   data: WeatherData;
@@ -22,6 +23,10 @@ const Location: React.FC<LocationComponent> = (props) => {
   const selectLocation = async (): Promise<void> => {
     onCloseDrawer?.();
     if (data && data.coord) {
+      const isNetwork = await checkNetworkConnection();
+      if (!isNetwork) {
+        return;
+      }
       setLocation(data.coord);
       await updateWeather();
     }
