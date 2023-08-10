@@ -14,13 +14,14 @@ interface LocationComponent {
 
 const Location: React.FC<LocationComponent> = (props) => {
   const { data, onCloseDrawer } = props;
-  const { location, setLocation, updateWeather } =
+  const { location, setLocation, updateWeather, setIsUpdating } =
     useContext<WeatherContextInterface>(WeatherContext);
 
   const isActive =
     location?.lat === data.coord?.lat && location?.lon === data.coord?.lon;
 
   const selectLocation = async (): Promise<void> => {
+    setIsUpdating(true);
     onCloseDrawer?.();
     if (data && data.coord) {
       const isNetwork = await checkNetworkConnection();

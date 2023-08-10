@@ -1,39 +1,16 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 
 import DayWeather from "./DayWeather";
-import { getForecastData } from "../utils/weather";
-import {
-  Coordinates,
-  WeatherContextInterface,
-  WeatherData,
-} from "../interfaces";
+import { WeatherContextInterface, WeatherData } from "../interfaces";
 import { WeatherContext } from "../providers/WeatherProviders";
-import { isLoaded } from "expo-font";
 
 const ForecastWeather: React.FC<{
-  location: Coordinates | null;
+  forecastData: WeatherData[] | undefined;
 }> = (props) => {
-  const { location } = props;
+  const { forecastData } = props;
 
-  const [forecastData, setForecastData] = useState<
-    WeatherData[] | null | undefined
-  >(null);
   const { appColors } = useContext<WeatherContextInterface>(WeatherContext);
-
-  useEffect(() => {
-    const fetchForecastData = async (): Promise<void> => {
-      if (!location) return;
-      try {
-        const forecastData = await getForecastData(location);
-        setForecastData(null);
-        setForecastData(forecastData);
-      } catch (error) {
-        console.log("Błąd podczas pobierania pogody na kolejne dni");
-      }
-    };
-    fetchForecastData();
-  }, [location]);
 
   return (
     <View style={styles.main}>

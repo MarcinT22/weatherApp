@@ -58,11 +58,15 @@ export interface LoaderProps {
 }
 
 export interface WeatherContextInterface {
+  location: Coordinates | null | undefined;
+  setLocation: React.Dispatch<
+    React.SetStateAction<Coordinates | undefined | null>
+  >;
   appColors: Colors;
-  location: Coordinates | null;
+  isUpdating: boolean;
   savedLocations: StorageData | null;
   setAppColors: React.Dispatch<React.SetStateAction<Colors>>;
-  setLocation: React.Dispatch<React.SetStateAction<Coordinates | null>>;
+  setIsUpdating: React.Dispatch<React.SetStateAction<boolean>>;
   setSavedLocations: React.Dispatch<React.SetStateAction<StorageData | null>>;
   updateWeather: () => Promise<void>;
   fetchData: () => Promise<void>;

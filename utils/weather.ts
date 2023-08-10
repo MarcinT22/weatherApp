@@ -120,3 +120,11 @@ export const getWeatherImage = (value: number | undefined): string => {
       return "Unknown";
   }
 };
+
+export const formatWindSpeed = (value: number | undefined): string | null => {
+  if (!value) {
+    return null;
+  }
+  const wind = value * 3.6;
+  return wind.toFixed(0);
+};
