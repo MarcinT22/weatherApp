@@ -17,3 +17,4 @@ Weather App is a mobile application developed in React Native using Expo. Weathe
 2. TypeScript
 3. Lottie
 4. Expo location
+5. OpenWeatherMap https://openweathermap.org/
