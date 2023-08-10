@@ -6,7 +6,7 @@ import BackButton from "../components/BackButton";
 import { useNavigation } from "@react-navigation/native";
 import { StackProp } from "../types";
 
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList } from "react-native";
 
 import {
   StorageData,
