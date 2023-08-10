@@ -2,7 +2,7 @@
 
 Weather App is a mobile application developed in React Native using Expo. Weather data is fetched from Open Weather Map API.
 
-##Features
+## Features
 
 1. Getting current location
 2. Searching location
