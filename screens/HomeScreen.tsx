@@ -9,7 +9,6 @@ import React, { useState, useCallback, useContext, useEffect } from "react";
 
 import CurrentWeather from "../components/CurrentWeather";
 import ForecastWeather from "../components/ForecastWeather";
-import "react-native-gesture-handler";
 import { WeatherContext } from "../providers/WeatherProviders";
 import {
   Coordinates,
@@ -19,7 +18,6 @@ import {
 import { checkNetworkConnection } from "../utils/networkConnection";
 import { getForecastData, getWeatherData } from "../utils/weather";
 import { getColors } from "../config/colors";
-import { isLoaded } from "expo-font";
 import AnimatedLottieView from "lottie-react-native";
 
 const HomeScreen: React.FC = () => {

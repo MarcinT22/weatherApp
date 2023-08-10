@@ -4,7 +4,7 @@ import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { WeatherContext } from "../providers/WeatherProviders";
 import Location from "../components/Location";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList } from "react-native";
 import { WeatherContextInterface } from "../interfaces";
 
 const DrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
