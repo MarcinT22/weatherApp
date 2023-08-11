@@ -6,7 +6,7 @@ import { WeatherContextInterface, WeatherData } from "../interfaces";
 import { WeatherContext } from "../providers/WeatherProviders";
 
 const ForecastWeather: React.FC<{
-  forecastData: WeatherData[] | undefined;
+  forecastData: WeatherData[] | null | undefined;
 }> = (props) => {
   const { forecastData } = props;
 
