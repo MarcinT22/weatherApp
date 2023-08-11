@@ -15,18 +15,15 @@ import { getStorageData } from "../utils/storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getWeatherData } from "../utils/weather";
 import { checkNetworkConnection } from "../utils/networkConnection";
-import { useFonts } from "expo-font";
-
-import { fonts } from "../utils/fonts";
 
 const defaultState: WeatherContextInterface = {
   location: null,
   appColors: colors.sunny,
   isUpdating: false,
   savedLocations: null,
-  setAppColors: () => null,
-  setIsUpdating: () => false,
-  setLocation: () => null,
+  setAppColors: () => {},
+  setIsUpdating: () => {},
+  setLocation: () => {},
   setSavedLocations: async () => null,
   updateWeather: async () => {},
   fetchData: async () => {},
@@ -34,8 +31,10 @@ const defaultState: WeatherContextInterface = {
 
 export const WeatherContext = createContext(defaultState);
 
-export default function WeatherProvider({ children }: WeatherProviderProps) {
-  const [fontsLoaded] = useFonts(fonts);
+export default function WeatherProvider({
+  children,
+  fontsLoaded,
+}: WeatherProviderProps) {
   const [appColors, setAppColors] = useState<Colors>(colors.sunny);
   const [savedLocations, setSavedLocations] = useState<StorageData | null>(
     null
@@ -64,10 +63,11 @@ export default function WeatherProvider({ children }: WeatherProviderProps) {
     try {
       const coords = await fetchLocationData();
 
-      if (coords) {
-        await updateWeather();
-        setLocation(coords);
+      if (!coords) {
+        setLocation(null);
       }
+
+      setLocation(coords);
     } catch (error) {
       console.log("FetchData error", error);
     }
@@ -78,6 +78,7 @@ export default function WeatherProvider({ children }: WeatherProviderProps) {
       const isNetwork = await checkNetworkConnection();
       if (isNetwork) {
         await fetchData();
+        await updateWeather();
       }
     };
 

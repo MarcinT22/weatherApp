@@ -31,7 +31,7 @@ const HomeScreen: React.FC = () => {
   } = useContext<WeatherContextInterface>(WeatherContext);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [weatherData, setWeatherData] = useState<WeatherData>();
-  const [forecastData, setForecastData] = useState<WeatherData[]>();
+  const [forecastData, setForecastData] = useState<WeatherData[] | null>();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const onRefresh = useCallback(async () => {
@@ -49,13 +49,16 @@ const HomeScreen: React.FC = () => {
         getWeatherData(location),
         getForecastData(location),
       ]);
+
       if (weatherData && forecastData) {
         await setColors(weatherData?.id);
         setWeatherData(weatherData);
+
         setForecastData(forecastData);
-        setIsLoaded(true);
-        setIsUpdating(false);
       }
+
+      setIsLoaded(true);
+      setIsUpdating(false);
     } catch (error) {
       console.log("Błąd podczas pobierania danych pogodowych", error);
     }

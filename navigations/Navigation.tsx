@@ -1,7 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DrawerNavigation from "./Drawer";
-import AddLocation from "../screens/AddLocationScreen";
 import AddLocationScreen from "../screens/AddLocationScreen";
 import LocationsScreen from "../screens/LocationsScreen";
 

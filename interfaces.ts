@@ -74,6 +74,7 @@ export interface WeatherContextInterface {
 
 export interface WeatherProviderProps {
   children: React.ReactNode;
+  fontsLoaded: boolean;
 }
 
 export interface StorageData {
