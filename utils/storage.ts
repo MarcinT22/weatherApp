@@ -5,8 +5,8 @@ export const storeData = async (key: string, value: StorageData) => {
   try {
     const stringValue = JSON.stringify(value);
     await AsyncStorage.setItem(key, stringValue);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.error(error);
   }
 };
 
@@ -20,8 +20,8 @@ export const getStorageData = async (
     } else {
       return null;
     }
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.error(error);
     return null;
   }
 };
@@ -52,6 +52,6 @@ export const removeStorageData = async (key: string) => {
   try {
     await AsyncStorage.removeItem(key);
   } catch (error) {
-    console.log("Błąd poczas usuwania danych z storage");
+    console.error("Błąd poczas usuwania danych z storage");
   }
 };

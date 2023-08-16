@@ -44,7 +44,7 @@ const CurrentWeather: React.FC<{
           />
         )}
         <Text style={styles.cityName} numberOfLines={1}>
-          {weatherData?.name}
+          {weatherData?.name ?? "Brak lokalizacji"}
         </Text>
         <Text style={styles.description}>{weatherData?.description}</Text>
         <Text style={styles.temp}>

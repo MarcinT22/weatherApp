@@ -11,18 +11,20 @@
       "resizeMode": "contain",
       "backgroundColor": "#0c5fc4"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "permissions": {
+        "internet": "Allow your app to access the internet"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0c5fc4"
       },
-      "package": "com.martop22.weatherapp"
+      "package": "com.martop22.weatherapp",
+      "permissions": ["INTERNET"]
     },
     "androidStatusBar": {
       "backgroundColor": "#0c5fc4",

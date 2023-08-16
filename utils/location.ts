@@ -1,29 +1,26 @@
 import * as Location from "expo-location";
 import { Coordinates } from "../interfaces";
 
-export const getDeviceLocation = async (): Promise<
-  Location.LocationObject | undefined
-> => {
-  try {
-    let { status } = await Location.requestForegroundPermissionsAsync();
+export const getDeviceLocation =
+  async (): Promise<Location.LocationObject | null> => {
+    try {
+      let { status } = await Location.requestForegroundPermissionsAsync();
 
-    if (status !== "granted") {
-      console.log("Brak uprawnień do pobrania lokalizacji");
-      return;
+      if (status !== "granted") {
+        console.error("Brak uprawnień do pobrania lokalizacji");
+        return null;
+      }
+
+      const location = await Location.getCurrentPositionAsync();
+
+      return location;
+    } catch (error) {
+      console.error("Brak uprawnien do lokalizacji", error);
+      return null;
     }
+  };
 
-    const location = await Location.getCurrentPositionAsync({
-      accuracy: Location.LocationAccuracy.Balanced,
-    });
-
-    return location;
-  } catch (error) {
-    console.log("Brak uprawnien do lokalizacji", error);
-    return undefined;
-  }
-};
-
-export const fetchLocationData = async (): Promise<Coordinates | undefined> => {
+export const fetchLocationData = async (): Promise<Coordinates | null> => {
   try {
     const currentLocation = await getDeviceLocation();
 
@@ -34,9 +31,9 @@ export const fetchLocationData = async (): Promise<Coordinates | undefined> => {
       };
       return coords;
     }
-    return undefined;
+    return null;
   } catch (error) {
-    console.log("Błąd podczas pobierania lokalizacji:", error);
-    return undefined;
+    console.error("Błąd podczas pobierania lokalizacji:", error);
+    return null;
   }
 };
