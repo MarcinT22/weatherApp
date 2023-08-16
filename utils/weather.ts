@@ -4,7 +4,7 @@ import { API_KEY } from "@env";
 import { isEvening } from "./dateFormat";
 
 const defaultParams = {
-  appid: API_KEY,
+  appid: process.env.EXPO_PUBLIC_API_KEY,
   units: "metric",
   lang: "pl",
 };
@@ -29,10 +29,6 @@ export const getWeatherData = async (
       },
     });
 
-    if (response === undefined) {
-      return;
-    }
-
     const { weather, main, wind, name, coord } = response.data;
 
     return {
@@ -48,7 +44,7 @@ export const getWeatherData = async (
       coord: coord,
     };
   } catch (error) {
-    console.log("Błąd poczas pobierania danych pogodowych:", error);
+    console.error("Błąd poczas pobierania danych pogodowych:", error);
   }
 };
 
@@ -63,9 +59,7 @@ export const getForecastData = async (
         lon: location.lon,
       },
     });
-    if (response === undefined) {
-      return;
-    }
+
     const list = response.data.list;
 
     return list.map((item: ForecastApiData["list"][0]) => {
@@ -80,7 +74,7 @@ export const getForecastData = async (
       };
     });
   } catch (error) {
-    console.log("Błąd poczas pobierania danych pogodowych:", error);
+    console.error("Błąd poczas pobierania danych pogodowych:", error);
     return undefined;
   }
 };

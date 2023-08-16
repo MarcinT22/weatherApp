@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  RefreshControl,
-  ScrollView,
-  View,
-  Text,
-} from "react-native";
+import { StyleSheet, RefreshControl, ScrollView, View } from "react-native";
 import React, { useState, useCallback, useContext, useEffect } from "react";
 
 import CurrentWeather from "../components/CurrentWeather";

@@ -43,20 +43,32 @@ export default function WeatherProvider({
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
   const updateWeather = async (): Promise<void> => {
-    const locations = await getStorageData("locations");
-    const storageLocations: WeatherData[] =
-      (locations?.value as WeatherData[]) || [];
-    const updateWeatherData = await Promise.all(
-      storageLocations?.map(async (location) => {
-        const locationWeather = await getWeatherData(location.name);
-        return locationWeather;
-      })
-    );
-    const updateStorage: StorageData = {
-      value: updateWeatherData,
-    };
+    try {
+      const locations = await getStorageData("locations");
+      const storageLocations: WeatherData[] =
+        (locations?.value as WeatherData[]) || [];
+      const updateWeatherData = await Promise.all(
+        storageLocations?.map(async (location) => {
+          try {
+            const locationWeather = await getWeatherData(location.name);
+            return locationWeather;
+          } catch (error) {
+            console.error(
+              "Błąd podczas pobierania danych pogodowych z storage",
+              error
+            );
+            return null;
+          }
+        })
+      );
+      const updateStorage: StorageData = {
+        value: updateWeatherData.filter((data) => data !== null),
+      };
 
-    setSavedLocations(updateStorage);
+      setSavedLocations(updateStorage);
+    } catch (error) {
+      console.error("Błąd podczas aktualizacji pogody:", error);
+    }
   };
 
   const fetchData = async (): Promise<void> => {
@@ -65,11 +77,11 @@ export default function WeatherProvider({
 
       if (!coords) {
         setLocation(null);
+      } else {
+        setLocation(coords);
       }
-
-      setLocation(coords);
     } catch (error) {
-      console.log("FetchData error", error);
+      console.error("FetchData error", error);
     }
   };
 
