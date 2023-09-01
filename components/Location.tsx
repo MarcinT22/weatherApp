@@ -51,7 +51,10 @@ const Location: React.FC<LocationComponent> = (props) => {
         </Text>
       </View>
       <View style={styles.data}>
-        <Image style={styles.image} source={icons[getWeatherImage(data.id)]} />
+        <Image
+          style={styles.image}
+          source={icons[getWeatherImage(data.id, data.date)]}
+        />
         <Text style={styles.temp}>
           {data.temp.toFixed(0)}
           {"\u00B0"}

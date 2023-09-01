@@ -14,7 +14,10 @@ const DayWeather: React.FC<DayWeatherProps> = React.memo((props) => {
     <View style={styles.view}>
       <Text style={styles.date}>{getDayName(item.date)}</Text>
       <Text style={styles.date}>{dateFormat(item.date, "HH:mm")}</Text>
-      <Image style={styles.icon} source={icons[getWeatherImage(item.id)]} />
+      <Image
+        style={styles.icon}
+        source={icons[getWeatherImage(item.id, item.date)]}
+      />
       <Text style={styles.temp}>
         {item.temp.toFixed(0)}
         {"\u00B0"}

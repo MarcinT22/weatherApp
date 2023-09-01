@@ -30,7 +30,10 @@ const SearchResult: React.FC<{ data: WeatherData }> = (props) => {
       </View>
       <View>
         <View style={styles.data}>
-          <Image style={styles.icon} source={icons[getWeatherImage(data.id)]} />
+          <Image
+            style={styles.icon}
+            source={icons[getWeatherImage(data.id, data.date)]}
+          />
           <Text style={styles.temp}>
             {data.temp.toFixed(0)}
             {"\u00B0"}

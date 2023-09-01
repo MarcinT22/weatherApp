@@ -44,9 +44,7 @@ export const getDayName = (date: number | undefined): string => {
   }
 };
 
-export const isEvening = () => {
-  const currentTime = moment();
-  const currentHour = currentTime.hour();
-
-  return currentHour >= 18 || currentHour < 6;
+export const isEvening = (time: number) => {
+  const hour = moment.unix(time).hour();
+  return hour >= 18 || hour < 6;
 };

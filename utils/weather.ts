@@ -29,7 +29,7 @@ export const getWeatherData = async (
       },
     });
 
-    const { weather, main, wind, name, coord } = response.data;
+    const { weather, main, wind, name, coord, dt } = response.data;
 
     return {
       description: weather[0].description,
@@ -42,6 +42,7 @@ export const getWeatherData = async (
       id: weather[0].id,
       name: name,
       coord: coord,
+      date: dt,
     };
   } catch (error) {
     console.error("Błąd poczas pobierania danych pogodowych:", error);
@@ -79,19 +80,23 @@ export const getForecastData = async (
   }
 };
 
-export const getWeatherImage = (value: number | undefined): string => {
-  if (!value) {
+export const getWeatherImage = (
+  value: number | null,
+  time: number | undefined
+): string => {
+  if (!value || !time) {
     return "Unknown";
   }
+
   switch (true) {
     case value >= 802:
       return "Cloudy";
 
     case value === 801:
-      return isEvening() ? "CloudyMoon" : "CloudySun";
+      return isEvening(time) ? "CloudyMoon" : "CloudySun";
 
     case value === 800:
-      return isEvening() ? "Moon" : "Sun";
+      return isEvening(time) ? "Moon" : "Sun";
 
     case value >= 700:
       return "Mist";

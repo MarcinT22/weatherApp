@@ -36,11 +36,14 @@ const CurrentWeather: React.FC<{
         >
           <Feather name="menu" size={40} color="#fff" />
         </TouchableOpacity>
+
         {weatherData && (
           <AnimatedLottieView
             autoPlay
             style={styles.icon}
-            source={lottieIcons[getWeatherImage(weatherData.id)]}
+            source={
+              lottieIcons[getWeatherImage(weatherData.id, weatherData.date)]
+            }
           />
         )}
         <Text style={styles.cityName} numberOfLines={1}>
