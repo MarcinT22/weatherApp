@@ -14,9 +14,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "permissions": {
-        "internet": "Allow your app to access the internet"
-      }
+
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +22,6 @@
         "backgroundColor": "#0c5fc4"
       },
       "package": "com.martop22.weatherapp",
-      "permissions": ["INTERNET"]
     },
     "androidStatusBar": {
       "backgroundColor": "#0c5fc4",
