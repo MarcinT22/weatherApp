@@ -31,6 +31,7 @@ const HomeScreen: React.FC = () => {
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     const isNetwork = await checkNetworkConnection();
+
     if (isNetwork) {
       await fetchData();
     }
@@ -47,14 +48,15 @@ const HomeScreen: React.FC = () => {
       if (weatherData && forecastData) {
         await setColors(weatherData?.id);
         setWeatherData(weatherData);
-
+        setForecastData(null);
         setForecastData(forecastData);
       }
 
       setIsLoaded(true);
-      setIsUpdating(false);
     } catch (error) {
       console.log("Błąd podczas pobierania danych pogodowych", error);
+    } finally {
+      setIsUpdating(false);
     }
   };
 

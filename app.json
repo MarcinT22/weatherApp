@@ -13,15 +13,14 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
-
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0c5fc4"
       },
-      "package": "com.martop22.weatherapp",
+      "package": "com.martop22.weatherapp"
     },
     "androidStatusBar": {
       "backgroundColor": "#0c5fc4",

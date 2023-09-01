@@ -108,7 +108,7 @@ export const getWeatherImage = (
       return "Rain";
 
     case value >= 500:
-      return "RainSun";
+      return isEvening(time) ? "Rain" : "RainSun";
 
     case value >= 300:
       return "Rain";
