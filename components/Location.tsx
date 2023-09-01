@@ -6,6 +6,7 @@ import { getWeatherImage } from "../utils/weather";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { WeatherContext } from "../providers/WeatherProviders";
 import { checkNetworkConnection } from "../utils/networkConnection";
+import { checkLocationRange } from "../utils/location";
 
 interface LocationComponent {
   data: WeatherData;
@@ -17,8 +18,15 @@ const Location: React.FC<LocationComponent> = (props) => {
   const { location, setLocation, updateWeather, setIsUpdating } =
     useContext<WeatherContextInterface>(WeatherContext);
 
-  const isActive =
-    location?.lat === data.coord?.lat && location?.lon === data.coord?.lon;
+  let isActive = false;
+  if (location && data.coord) {
+    isActive = checkLocationRange(
+      location?.lat,
+      data.coord?.lat,
+      location?.lon,
+      data.coord?.lon
+    );
+  }
 
   const selectLocation = async (): Promise<void> => {
     setIsUpdating(true);

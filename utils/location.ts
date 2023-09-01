@@ -1,5 +1,5 @@
 import * as Location from "expo-location";
-import { Coordinates } from "../interfaces";
+import { Coordinates, LocationRange } from "../interfaces";
 
 export const getDeviceLocation =
   async (): Promise<Location.LocationObject | null> => {
@@ -36,4 +36,18 @@ export const fetchLocationData = async (): Promise<Coordinates | null> => {
     console.error("Błąd podczas pobierania lokalizacji:", error);
     return null;
   }
+};
+
+export const checkLocationRange = (
+  latitude: number,
+  comparedLatitude: number,
+  longitude: number,
+  comparedLontitude: number
+): boolean => {
+  let isWithinLat =
+    Math.abs(latitude - comparedLatitude) <= 0.009 ? true : false;
+  let isWithinLon =
+    Math.abs(longitude - comparedLontitude) <= 0.009 ? true : false;
+
+  return isWithinLat && isWithinLon;
 };
