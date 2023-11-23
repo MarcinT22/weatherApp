@@ -1,4 +1,12 @@
 export const colors = {
+  cloudy: {
+    primary: "#3286B5",
+    secondary: "#A8E2FB",
+  },
+  snowy: {
+    primary: "#838D98",
+    secondary: "#DAE4F0",
+  },
   sunny: {
     primary: "#0c5fc4",
     secondary: "#8bbffc",
@@ -6,10 +14,6 @@ export const colors = {
   rainy: {
     primary: "#4c9e83",
     secondary: "#8ed4bd",
-  },
-  snowy: {
-    primary: "#6d8bad",
-    secondary: "#b5d3f7",
   },
 };
 
@@ -19,6 +23,8 @@ export const getColors = (id: number | undefined) => {
   }
 
   switch (true) {
+    case id >= 802:
+      return colors.cloudy;
     case id >= 800:
       return colors.sunny;
     case id >= 700:
@@ -27,5 +33,7 @@ export const getColors = (id: number | undefined) => {
       return colors.snowy;
     case id >= 200:
       return colors.rainy;
+    default:
+      return colors.sunny;
   }
 };
