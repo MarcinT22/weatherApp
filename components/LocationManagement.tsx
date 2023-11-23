@@ -1,18 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useContext } from "react";
-
+import React from "react";
 import { Foundation } from "@expo/vector-icons";
-import { StorageData, WeatherData } from "../interfaces";
-import { storeData } from "../utils/storage";
-import { WeatherContext } from "../providers/WeatherProviders";
-import { Feather } from "@expo/vector-icons";
-import Animated from "react-native-reanimated";
+import { WeatherData } from "../interfaces";
+
 const LocationManagement: React.FC<{
   item: WeatherData;
   onRemove: () => void;
 }> = ({ item, onRemove }) => {
-  const { appColors } = useContext(WeatherContext);
-
   return (
     <View style={styles.view}>
       <Text numberOfLines={1} style={styles.text}>

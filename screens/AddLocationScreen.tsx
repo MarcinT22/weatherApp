@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { View, TextInput, Text, StyleSheet } from "react-native";
 import { WeatherContext } from "../providers/WeatherProviders";
 import BackButton from "../components/BackButton";

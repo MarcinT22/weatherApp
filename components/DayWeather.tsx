@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { DayWeatherProps } from "../interfaces";
 import { dateFormat, getDayName } from "../utils/dateFormat";
