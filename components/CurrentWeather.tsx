@@ -14,9 +14,10 @@ import { useNavigation } from "@react-navigation/native";
 import { WeatherContext } from "../providers/WeatherProviders";
 import { DrawerProp } from "../types";
 import AnimatedLottieView from "lottie-react-native";
+import Animated, { FadeIn, FadeInDown, FadeOut } from "react-native-reanimated";
 
 const CurrentWeather: React.FC<{
-  weatherData: WeatherData | undefined;
+  weatherData: WeatherData | null | undefined;
   update: boolean;
 }> = (props) => {
   const { weatherData, update } = props;
@@ -30,77 +31,119 @@ const CurrentWeather: React.FC<{
         colors={[appColors.primary, appColors.secondary]}
         style={styles.main}
       >
-        <TouchableOpacity
+        <Animated.View
+          entering={FadeInDown.delay(200).duration(1000).springify()}
           style={styles.menuButton}
-          onPress={() => navigation.toggleDrawer()}
         >
-          <Feather name="menu" size={40} color="#fff" />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+            <Feather name="menu" size={40} color="#fff" />
+          </TouchableOpacity>
+        </Animated.View>
 
         {weatherData && (
-          <AnimatedLottieView
-            autoPlay
-            style={styles.icon}
-            source={
-              lottieIcons[getWeatherImage(weatherData.id, weatherData.date)]
-            }
-          />
-        )}
-        <Text style={styles.cityName} numberOfLines={1}>
-          {weatherData?.name ?? "Brak lokalizacji"}
-        </Text>
-        <Text style={styles.description}>{weatherData?.description}</Text>
-        <Text style={styles.temp}>
-          {weatherData?.temp.toFixed(0)}
-          {"\u00B0"}
-        </Text>
-
-        <View style={styles.lastUpdate}>
-          {!update ? (
-            <>
-              <MaterialIcons
-                name="update"
-                size={18}
-                color="rgba(255,255,255,0.7)"
+          <>
+            <Animated.View
+              entering={FadeInDown.delay(200).duration(1000).springify()}
+              exiting={FadeOut.duration(500).springify()}
+            >
+              <AnimatedLottieView
+                autoPlay
+                style={styles.icon}
+                source={
+                  lottieIcons[getWeatherImage(weatherData.id, weatherData.date)]
+                }
               />
-              <Text style={styles.lastUpdateText}>
-                {dateFormat(new Date(), "HH:mm")}
-              </Text>
-            </>
-          ) : (
-            <ActivityIndicator color="#fff" />
-          )}
-        </View>
+            </Animated.View>
 
-        <View style={styles.data}>
-          <View style={styles.tempData}>
-            <FontAwesome5 name="temperature-high" size={22} color="white" />
-            <Text style={styles.label}>max/min</Text>
-            <Text style={styles.text}>
-              {weatherData?.maxTemp.toFixed(0)}
-              {"\u00B0"}/{weatherData?.minTemp.toFixed(0)}
+            <Animated.Text
+              style={styles.cityName}
+              numberOfLines={1}
+              entering={FadeInDown.delay(200).duration(1000).springify()}
+            >
+              {weatherData.name ?? "Brak lokalizacji"}
+            </Animated.Text>
+
+            <Animated.Text
+              style={styles.description}
+              entering={FadeInDown.delay(200).duration(1000).springify()}
+            >
+              {weatherData.description}
+            </Animated.Text>
+
+            <Animated.Text
+              style={styles.temp}
+              entering={FadeInDown.delay(200).duration(1000).springify()}
+            >
+              {weatherData.temp.toFixed(0)}
               {"\u00B0"}
-            </Text>
-          </View>
+            </Animated.Text>
 
-          <View style={styles.tempData}>
-            <Ionicons name="water-outline" size={22} color="white" />
-            <Text style={styles.label}>Wilgotność</Text>
-            <Text style={styles.text}>{weatherData?.humidity}%</Text>
+            <Animated.View
+              style={styles.lastUpdate}
+              entering={FadeIn.delay(200).duration(1000).springify()}
+            >
+              {!update ? (
+                <>
+                  <MaterialIcons
+                    name="update"
+                    size={18}
+                    color="rgba(255,255,255,0.7)"
+                  />
+                  <Text style={styles.lastUpdateText}>
+                    {dateFormat(new Date(), "HH:mm")}
+                  </Text>
+                </>
+              ) : (
+                <ActivityIndicator color="#fff" />
+              )}
+            </Animated.View>
+          </>
+        )}
+        {weatherData && (
+          <View style={styles.data}>
+            <Animated.View
+              style={styles.tempData}
+              entering={FadeIn.delay(200).duration(1000).springify()}
+            >
+              <FontAwesome5 name="temperature-high" size={22} color="white" />
+              <Text style={styles.label}>max/min</Text>
+              <Text style={styles.text}>
+                {weatherData?.maxTemp.toFixed(0)}
+                {"\u00B0"}/{weatherData.minTemp.toFixed(0)}
+                {"\u00B0"}
+              </Text>
+            </Animated.View>
+
+            <Animated.View
+              style={styles.tempData}
+              entering={FadeIn.delay(400).duration(1000).springify()}
+            >
+              <Ionicons name="water-outline" size={22} color="white" />
+              <Text style={styles.label}>Wilgotność</Text>
+              <Text style={styles.text}>{weatherData.humidity}%</Text>
+            </Animated.View>
+
+            <Animated.View
+              style={styles.tempData}
+              entering={FadeIn.delay(600).duration(1000).springify()}
+            >
+              <MaterialIcons name="speed" size={22} color="white" />
+              <Text style={styles.label}>Ciśnienie</Text>
+              <Text style={styles.text}>{weatherData.pressure} hPa</Text>
+            </Animated.View>
+
+            <Animated.View
+              style={styles.tempData}
+              entering={FadeIn.delay(800).duration(1000).springify()}
+            >
+              <Feather name="wind" size={22} color="white" />
+              <Text style={styles.label}>Wiatr</Text>
+              <Text style={styles.text}>
+                {formatWindSpeed(weatherData.wind)} km/h
+              </Text>
+            </Animated.View>
           </View>
-          <View style={styles.tempData}>
-            <MaterialIcons name="speed" size={22} color="white" />
-            <Text style={styles.label}>Ciśnienie</Text>
-            <Text style={styles.text}>{weatherData?.pressure} hPa</Text>
-          </View>
-          <View style={styles.tempData}>
-            <Feather name="wind" size={22} color="white" />
-            <Text style={styles.label}>Wiatr</Text>
-            <Text style={styles.text}>
-              {formatWindSpeed(weatherData?.wind)} km/h
-            </Text>
-          </View>
-        </View>
+        )}
       </LinearGradient>
     </>
   );

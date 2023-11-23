@@ -6,6 +6,7 @@ import { StorageData, WeatherData } from "../interfaces";
 import { storeData } from "../utils/storage";
 import { WeatherContext } from "../providers/WeatherProviders";
 import { Feather } from "@expo/vector-icons";
+import Animated from "react-native-reanimated";
 const LocationManagement: React.FC<{
   item: WeatherData;
   onRemove: () => void;

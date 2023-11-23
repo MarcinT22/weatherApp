@@ -7,7 +7,7 @@ export const getDeviceLocation =
       let { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status !== "granted") {
-        console.error("Brak uprawnień do pobrania lokalizacji");
+        console.log("Brak uprawnień do pobrania lokalizacji");
         return null;
       }
 
@@ -15,7 +15,7 @@ export const getDeviceLocation =
 
       return location;
     } catch (error) {
-      console.error("Brak uprawnien do lokalizacji", error);
+      console.log("Brak uprawnien do lokalizacji", error);
       return null;
     }
   };
@@ -33,7 +33,7 @@ export const fetchLocationData = async (): Promise<Coordinates | null> => {
     }
     return null;
   } catch (error) {
-    console.error("Błąd podczas pobierania lokalizacji:", error);
+    console.log("Błąd podczas pobierania lokalizacji:", error);
     return null;
   }
 };

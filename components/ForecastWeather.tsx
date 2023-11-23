@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import DayWeather from "./DayWeather";
 import { WeatherContextInterface, WeatherData } from "../interfaces";
 import { WeatherContext } from "../providers/WeatherProviders";
+import Animated, { FadeInDown, FadeOut } from "react-native-reanimated";
 
 const ForecastWeather: React.FC<{
   forecastData: WeatherData[] | null | undefined;
@@ -14,19 +15,30 @@ const ForecastWeather: React.FC<{
 
   return (
     <View style={styles.main}>
-      <Text style={[styles.text, { color: appColors.primary }]}>
-        Prognoza na 5 dni (co 3 godziny)
-      </Text>
       {forecastData && (
-        <FlatList
-          initialNumToRender={4}
-          contentContainerStyle={styles.flatList}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          keyExtractor={(item, index) => index.toString()}
-          data={forecastData}
-          renderItem={({ item }) => <DayWeather item={item} />}
-        />
+        <>
+          <Animated.Text
+            style={[styles.text, { color: appColors.primary }]}
+            entering={FadeInDown.delay(200).duration(1000).springify()}
+          >
+            Prognoza na 5 dni (co 3 godziny)
+          </Animated.Text>
+
+          <Animated.View
+            entering={FadeInDown.delay(400).duration(1000).springify()}
+            exiting={FadeOut.duration(500).springify()}
+          >
+            <FlatList
+              initialNumToRender={4}
+              contentContainerStyle={styles.flatList}
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              keyExtractor={(item, index) => index.toString()}
+              data={forecastData}
+              renderItem={({ item }) => <DayWeather item={item} />}
+            />
+          </Animated.View>
+        </>
       )}
     </View>
   );

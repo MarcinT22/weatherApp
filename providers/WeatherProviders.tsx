@@ -53,7 +53,7 @@ export default function WeatherProvider({
             const locationWeather = await getWeatherData(location.name);
             return locationWeather;
           } catch (error) {
-            console.error(
+            console.log(
               "Błąd podczas pobierania danych pogodowych z storage",
               error
             );
@@ -67,7 +67,7 @@ export default function WeatherProvider({
 
       setSavedLocations(updateStorage);
     } catch (error) {
-      console.error("Błąd podczas aktualizacji pogody:", error);
+      console.log("Błąd podczas aktualizacji pogody:", error);
     }
   };
 
@@ -81,7 +81,7 @@ export default function WeatherProvider({
         setLocation(coords);
       }
     } catch (error) {
-      console.error("FetchData error", error);
+      console.log("FetchData error", error);
     }
   };
 

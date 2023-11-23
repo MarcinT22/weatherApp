@@ -45,7 +45,7 @@ export const getWeatherData = async (
       date: dt,
     };
   } catch (error) {
-    console.error("Błąd poczas pobierania danych pogodowych:", error);
+    console.log("Błąd poczas pobierania danych pogodowych:", error);
   }
 };
 
@@ -75,7 +75,7 @@ export const getForecastData = async (
       };
     });
   } catch (error) {
-    console.error("Błąd poczas pobierania danych pogodowych:", error);
+    console.log("Błąd poczas pobierania danych pogodowych:", error);
     return undefined;
   }
 };

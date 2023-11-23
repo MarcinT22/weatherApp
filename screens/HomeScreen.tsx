@@ -24,12 +24,13 @@ const HomeScreen: React.FC = () => {
     setIsUpdating,
   } = useContext<WeatherContextInterface>(WeatherContext);
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const [weatherData, setWeatherData] = useState<WeatherData>();
+  const [weatherData, setWeatherData] = useState<WeatherData | null>();
   const [forecastData, setForecastData] = useState<WeatherData[] | null>();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
+
     const isNetwork = await checkNetworkConnection();
 
     if (isNetwork) {
@@ -46,9 +47,10 @@ const HomeScreen: React.FC = () => {
       ]);
 
       if (weatherData && forecastData) {
+        setWeatherData(null);
+        setForecastData(null);
         await setColors(weatherData?.id);
         setWeatherData(weatherData);
-        setForecastData(null);
         setForecastData(forecastData);
       }
 

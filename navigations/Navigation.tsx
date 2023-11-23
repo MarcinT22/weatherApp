@@ -9,9 +9,7 @@ const Stack = createNativeStackNavigator();
 function Navigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{ headerShown: false, animation: "none" }}
-      >
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={DrawerNavigation} />
         <Stack.Screen name="AddLocationScreen" component={AddLocationScreen} />
         <Stack.Screen name="LocationsScreen" component={LocationsScreen} />
