@@ -6,7 +6,7 @@ import { getWeatherImage } from "../utils/weather";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { WeatherContext } from "../providers/WeatherProviders";
 import { checkNetworkConnection } from "../utils/networkConnection";
-import { checkLocationRange } from "../utils/location";
+import { isLocationNearby } from "../utils/location";
 
 interface LocationComponent {
   data: WeatherData;
@@ -20,12 +20,12 @@ const Location: React.FC<LocationComponent> = (props) => {
 
   let isActive = false;
   if (location && data.coord) {
-    isActive = checkLocationRange(
-      location?.lat,
-      data.coord?.lat,
-      location?.lon,
-      data.coord?.lon
-    );
+    const currentLat = location?.lat || 0;
+    const currentLon = location?.lon || 0;
+    const targetLat = data.coord?.lat || 0;
+    const targetLon = data.coord?.lon || 0;
+
+    isActive = isLocationNearby(currentLat, currentLon, targetLat, targetLon);
   }
 
   const selectLocation = async (): Promise<void> => {

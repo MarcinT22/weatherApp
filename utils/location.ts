@@ -1,5 +1,5 @@
 import * as Location from "expo-location";
-import { Coordinates, LocationRange } from "../interfaces";
+import { Coordinates } from "../interfaces";
 
 export const getDeviceLocation =
   async (): Promise<Location.LocationObject | null> => {
@@ -38,16 +38,17 @@ export const fetchLocationData = async (): Promise<Coordinates | null> => {
   }
 };
 
-export const checkLocationRange = (
-  latitude: number,
-  comparedLatitude: number,
-  longitude: number,
-  comparedLontitude: number
+export const isLocationNearby = (
+  currentLat: number,
+  currentLon: number,
+  targetLat: number,
+  targetLon: number
 ): boolean => {
-  let isWithinLat =
-    Math.abs(latitude - comparedLatitude) <= 0.009 ? true : false;
-  let isWithinLon =
-    Math.abs(longitude - comparedLontitude) <= 0.009 ? true : false;
+  const distanceThreshold = 0.01;
 
-  return isWithinLat && isWithinLon;
+  const distance = Math.sqrt(
+    Math.pow(currentLat - targetLat, 2) + Math.pow(currentLon - targetLon, 2)
+  );
+
+  return distance < distanceThreshold;
 };
