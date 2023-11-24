@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { WeatherContext } from "../providers/WeatherProviders";
 import BackButton from "../components/BackButton";
 
@@ -15,10 +15,13 @@ import {
 } from "../interfaces";
 import { storeData } from "../utils/storage";
 import LocationManagement from "../components/LocationManagement";
+import LocationRemovalModal from "../components/LocationRemovalModal";
 
 const LocationsScreen: React.FC = () => {
   const { appColors, savedLocations, setSavedLocations } =
     useContext<WeatherContextInterface>(WeatherContext);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [locationData, setLocationData] = useState<WeatherData | null>(null);
   const navigation = useNavigation<StackProp>();
 
   let data = Array.isArray(savedLocations?.value) ? savedLocations?.value : [];
@@ -32,11 +35,16 @@ const LocationsScreen: React.FC = () => {
     await storeData("locations", updatedData);
   };
 
+  const showModal = (item: WeatherData): void => {
+    setLocationData(item);
+    setModalVisible(true);
+  };
+
   return (
     <View style={[styles.main, { backgroundColor: appColors.primary }]}>
       <View style={styles.header}>
         <BackButton />
-        <Text style={styles.title}>Zarządzaj lokalizacjami ss</Text>
+        <Text style={styles.title}>Zarządzaj lokalizacjami</Text>
       </View>
 
       {data?.length ? (
@@ -49,7 +57,8 @@ const LocationsScreen: React.FC = () => {
             renderItem={({ item }) => (
               <LocationManagement
                 item={item}
-                onRemove={() => removeLocation(item)}
+                onRemove={() => showModal(item)}
+                // onRemove={() => removeLocation(item)}
               />
             )}
           />
@@ -67,6 +76,17 @@ const LocationsScreen: React.FC = () => {
       >
         <Text style={styles.addButtonText}>Dodaj lokalizację</Text>
       </TouchableOpacity>
+      <LocationRemovalModal
+        modalVisible={modalVisible}
+        name={locationData?.name || "Nieznana lokalizacja"}
+        setModalVisible={setModalVisible}
+        onRemove={() => {
+          if (locationData) {
+            removeLocation(locationData);
+            setModalVisible(false);
+          }
+        }}
+      />
     </View>
   );
 };

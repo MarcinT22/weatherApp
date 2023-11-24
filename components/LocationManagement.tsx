@@ -15,7 +15,7 @@ const LocationManagement: React.FC<{
 
       <View style={styles.actions}>
         <TouchableOpacity onPress={onRemove}>
-          <FontAwesome name="trash-o" size={26} color="rgba(0,0,0,0.5)" />
+          <FontAwesome name="trash-o" size={26} color="#fff" />
         </TouchableOpacity>
       </View>
     </View>
