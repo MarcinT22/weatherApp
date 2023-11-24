@@ -44,7 +44,6 @@ const CurrentWeather: React.FC<{
           <>
             <Animated.View
               entering={FadeInDown.delay(200).duration(1000).springify()}
-              exiting={FadeOut.duration(500).springify()}
             >
               <AnimatedLottieView
                 autoPlay

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { Foundation } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { WeatherData } from "../interfaces";
 
 const LocationManagement: React.FC<{
@@ -15,7 +15,7 @@ const LocationManagement: React.FC<{
 
       <View style={styles.actions}>
         <TouchableOpacity onPress={onRemove}>
-          <Foundation name="trash" size={24} color="#c73a3a" />
+          <FontAwesome name="trash-o" size={26} color="rgba(0,0,0,0.5)" />
         </TouchableOpacity>
       </View>
     </View>
@@ -26,7 +26,9 @@ export default LocationManagement;
 
 const styles = StyleSheet.create({
   view: {
-    backgroundColor: "#fff",
+    backgroundColor: "rgba(255, 255, 255, 0.22)",
+    borderColor: "#rgba(255,255,255,0.6)",
+    borderWidth: 1,
     paddingHorizontal: 10,
     paddingVertical: 20,
     marginVertical: 5,
@@ -37,7 +39,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    fontFamily: "Poppins-400",
+    fontFamily: "Poppins-500",
+    color: "#fff",
   },
   actions: {
     flexDirection: "row",

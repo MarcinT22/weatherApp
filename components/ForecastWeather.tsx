@@ -26,7 +26,6 @@ const ForecastWeather: React.FC<{
 
           <Animated.View
             entering={FadeInDown.delay(400).duration(1000).springify()}
-            exiting={FadeOut.duration(500).springify()}
           >
             <FlatList
               initialNumToRender={4}

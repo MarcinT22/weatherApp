@@ -36,7 +36,7 @@ const LocationsScreen: React.FC = () => {
     <View style={[styles.main, { backgroundColor: appColors.primary }]}>
       <View style={styles.header}>
         <BackButton />
-        <Text style={styles.title}>Zarządzaj lokalizacjami</Text>
+        <Text style={styles.title}>Zarządzaj lokalizacjami ss</Text>
       </View>
 
       {data?.length ? (

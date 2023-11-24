@@ -106,6 +106,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   main: {
     flex: 1,
+    backgroundColor: "#fff",
   },
 
   loader: {
