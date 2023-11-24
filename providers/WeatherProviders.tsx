@@ -89,11 +89,11 @@ export default function WeatherProvider({
     const checkNetworkAndFetch = async () => {
       const isNetwork = await checkNetworkConnection();
       if (isNetwork) {
+        await updateWeather();
         await fetchData();
       }
     };
 
-    updateWeather();
     checkNetworkAndFetch();
   }, []);
 
